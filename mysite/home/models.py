@@ -1,5 +1,5 @@
 from django.db import models
 
 
-class Blogs(models.Model):
+class Blog(models.Model):
     msg = models.TextField()
