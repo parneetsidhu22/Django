@@ -7,11 +7,18 @@
     <title>Document</title>
 </head>
 <body>
-    <form action="#">
+    <style>
+        form{
+            display:flex;
+            flex-direction:column;
+        }
+    </style>
+    <form action="" method="POST">
         <label for ="username">Username:</label>
-        <input type="text" id="username" name="username">
-        
+        <textarea name="username" id="username"></textarea>
+
+        {% csrf_token %}
+        <input type="submit">
     </form>
-    
 </body>
 </html>
