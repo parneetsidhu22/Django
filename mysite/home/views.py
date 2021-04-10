@@ -1,6 +1,7 @@
 from django.shortcuts import render
+from .models import Blog
 
 
 def homepage(request):
-    print(request.POST.get('username'))
+
     return render(request, 'index.html', context={"name": "Parneet"})
