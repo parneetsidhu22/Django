@@ -3,4 +3,12 @@ from .models import Blog
 
 
 def homepage(request):
-    pass
+    if request.method == "POST":
+        msg = request.POST.get("msg_box")
+
+        if msg != '':
+            blog = Blog(msg=msg)
+            blog.save()
+    data = Blog.objects.all()
+
+    return render(request, 'index.html', context={"msgs": data})

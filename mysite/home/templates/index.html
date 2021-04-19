@@ -9,4 +9,9 @@
     {% csrf_token %}
     <input type="submit">
 </form>
+
+<br><br>
+{% for element in msgs %}
+    <p>{{ element.msg }}</p>
+{% endfor %}
 {% endblock %}
