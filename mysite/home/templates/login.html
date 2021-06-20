@@ -1,16 +1,39 @@
 {% extends "base.html"%}
 
 {% block content %}
-<div class="mb-3 row">
-    <label for="username" class="col-sm-2 col-form-label">Username</label>
-    <div class="col-sm-10">
-      <input type="text" readonly class="form-control-plaintext" id="username" value="email@example.com">
+{% load static %}
+<style>
+  .card {
+          margin: 0 auto; /* Added */
+          float: none; /* Added */
+          margin-bottom: 10px; /* Added */
+  }
+</style>
+
+<div class="card" style="width:30rem;margin-top:20px;">
+  <div class="card-body">
+  <h3>Login</h3><br>
+  <form class="row g-3 login_form" method="POST" action="">
+
+    <div class="col-12">
+      <label for="usernameField" class="form-label">Username</label>
+      <input type="text" class="form-control" id="usernameField" name='username'>
     </div>
-  </div>
-  <div class="mb-3 row">
-    <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
-    <div class="col-sm-10">
-      <input type="password" class="form-control" id="inputPassword">
+
+    <div class="col-12">
+      <label for="passwordField" class="form-label">Password</label>
+      <input type="password" class="form-control" id="passwordField" name='password'>
     </div>
+    
+    <div class="col-12">
+      {% csrf_token %}
+      <button type="submit" class="btn btn-primary wide-button">Login</button>
+    </div>
+  </form>
   </div>
+</div>
+
+
+
+
 {% endblock %}

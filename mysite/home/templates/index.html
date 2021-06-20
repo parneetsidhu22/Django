@@ -2,16 +2,40 @@
 
 {% block content %}
 <!-- Form -->
-<form action="" method="POST">
-    <label for ="msg_box">Write a blog:</label>
-    <textarea name="msg_box" id="msg_box"></textarea>
+{% if messages %}
+  {% for message in messages %}
+    {% if message.tags == "success" %}
+      <div class="alert alert-success" role="alert">
+        {{ message }}
+      </div>
+    {% endif %}
+  {% endfor %}
+{% endif %}
 
-    {% csrf_token %}
-    <input type="submit">
-</form>
+<div class="align-center">
+  <div class="card" style="width:30%" style="margin:0px;padding:0px;">
+    <h5 class="card-header" class="align-center">Write a blog</h5>
+    <div class="card-body">
+      <form action="" method="POST">
+        <div class="form-group">
+          <textarea class="form-control" name="msg_box" id="msg_box" rows="5" style="width:100%;" placeholder="What's on your mind?"></textarea>
+        </div>
+        <br>
+         {% csrf_token %}
+         <div>
+            <input type="submit" class="btn btn-primary" style="width:100%" value="submit">
+         </div>
+        
+      </form>
+    </div>
+  </div>
+</div>
 
-<br><br>
-{% for element in msgs %}
-    <p>{{ element.msg }}</p>
-{% endfor %}
+
+
+  <br><br>
+  {% for element in msgs %}
+      <p>{{ element.msg }}</p>
+  {% endfor %}
+
 {% endblock %}
