@@ -4,7 +4,6 @@ from .models import Blog
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-
 from django.contrib import messages
 
 
@@ -41,7 +40,8 @@ def mylogin(request):
         if user != None:
             login(request, user)
             return redirect("homepage")
-
+        else:
+            messages.error(request, "Invalid Credentials!")
     return render(request, 'login.html')
 
 
@@ -57,21 +57,41 @@ def register(request):
         password = request.POST.get('password')
         cpassword = request.POST.get('cpassword')
 
-        user = User(username=username, email=email)
-        user.first_name = fname
-        user.last_name = lname
-        user.set_password(password)
-        user.save()
+        errors = False
 
-        user2 = authenticate(request, username=username, password=password)
-        print(user2)
+        if not username.isalnum():
+            messages.error(request, "Username must be alphanumeric.",
+                           extra_tags="username_error")
+            errors = True
 
-        if user2 != None:
-            login(request, user2)
-        else:
-            pass
-            # error messages
+        user = User.objects.filter(username=username)
+        if user != None:
+            errors = True
 
-        messages.success(request, 'Welcome...')
-        return redirect('homepage')
+            messages.error(request, "Username already exists.",
+                           extra_tags="username_error")
+
+        if password != cpassword:
+            messages.error(request, "Password does not match.",
+                           extra_tags="password_error")
+            errors = True
+
+        if not errors:
+
+            user = User(username=username, email=email)
+            user.first_name = fname
+            user.last_name = lname
+            user.set_password(password)
+            user.save()
+
+            user2 = authenticate(request, username=username, password=password)
+
+            if user2 != None:
+                login(request, user2)
+            else:
+                pass
+                # error messages
+
+            messages.success(request, 'Welcome...')
+            return redirect('homepage')
     return render(request, 'register.html')

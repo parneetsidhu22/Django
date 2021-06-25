@@ -14,16 +14,28 @@
   <div class="card-body">
   <h3>Login</h3><br>
   <form class="row g-3 login_form" method="POST" action="">
-
-    <div class="col-12">
+    <!--<div class="col-12">
       <label for="usernameField" class="form-label">Username</label>
       <input type="text" class="form-control" id="usernameField" name='username'>
+    </div>-->
+    <div class="col-12">
+      <label for="validationServer01" class="form-label">Username</label>
+      <input type="text" class="form-control {% if messages %} is-invalid {% endif %}" id="usernameField" aria-describedby="validationServer01Feedback" name="username" required>
     </div>
 
     <div class="col-12">
-      <label for="passwordField" class="form-label">Password</label>
-      <input type="password" class="form-control" id="passwordField" name='password'>
+      <label for="validationServer02" class="form-label">Password</label>
+      <input type="password" class="form-control {% if messages %} is-invalid {% endif %}" id="passwordField" aria-describedby="validationServer02Feedback" name="password" required>
+        {% if messages %}
+        <div id="validationServer02Feedback" class="invalid-feedback">
+          {% for message in messages %}
+            {{ message }}
+          {% endfor %}
+        </div>
+        {% endif %}
     </div>
+
+    
     
     <div class="col-12">
       {% csrf_token %}

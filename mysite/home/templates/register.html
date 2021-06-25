@@ -21,21 +21,41 @@
       <label for="lnameField" class="form-label">Last Name</label>
       <input type="text" class="form-control" id="lnameField" name='lname'>
     </div>
-    <div class="col-12">
-      <label for="usernameField" class="form-label">Username</label>
-      <input type="text" class="form-control" id="usernameField" name='username'>
+   <div class="col-12">
+      <label for="validationServer01" class="form-label">Username</label>
+      <input type="text" class="form-control {% for message in messages %}{% if message.extra_tags == "username_error" %} is-invalid {% endif %}{% endfor %}" id="usernameField" aria-describedby="validationServer01Feedback" name="username" required>
+        {% if messages %}
+        <div id="validationServer01Feedback" class="invalid-feedback">
+          {% for message in messages %}
+            {% if message.extra_tags == "username_error" %}
+              {{ message }}
+            {% endif %}
+          {% endfor %}
+        </div>
+        {% endif %}
     </div>
     <div class="col-12">
       <label for="emailField" class="form-label">Email</label>
       <input type="email" class="form-control" id="emailField" name='email'>
     </div>
+
     <div class="col-12">
-      <label for="passwordField" class="form-label">Password</label>
-      <input type="password" class="form-control" id="passwordField" name='password'>
+      <label for="validationServer02" class="form-label">Password</label>
+      <input type="password" class="form-control {% for message in messages %}{% if message.extra_tags == "password_error" %} is-invalid {% endif %}{% endfor %}" id="passwordField" aria-describedby="validationServer02Feedback" name="password" required>
     </div>
+
     <div class="col-12">
-      <label for="cpasswordField" class="form-label">Confirm password</label>
-      <input type="password" class="form-control" id="cpasswordField" name='cpassword'>
+      <label for="validationServer03" class="form-label">Confirm Password</label>
+      <input type="password" class="form-control {% for message in messages %}{% if message.extra_tags == "password_error" %} is-invalid {% endif %}{% endfor %}" id="cpasswordField" aria-describedby="validationServer03Feedback" name="cpassword" required>
+        {% if messages %}
+        <div id="validationServer03Feedback" class="invalid-feedback">
+          {% for message in messages %}
+            {% if message.extra_tags == "password_error" %}
+              {{ message }}
+            {% endif %}
+          {% endfor %}
+        </div>
+        {% endif %}
     </div>
     <div class="col-12">
       {% csrf_token %}
